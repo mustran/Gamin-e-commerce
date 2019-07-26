@@ -19,7 +19,7 @@ class ProductProvider extends Component {
         });
 
         this.setState(() => {
-            return {products}
+            return { products };
         });
     };
 
@@ -27,11 +27,18 @@ class ProductProvider extends Component {
         this.setProducts();
     }
 
-    handleDetail = () => {
-        console.log("Hello from handleDetail");
+    getItem = id => {
+        return this.state.products.find(el => el.id === id);
     };
-    addToCart = (id) => {
-        console.log(`Hello from addToCart. ID IS: ${id}` );
+
+    handleDetail = (id) => {
+        const product = this.getItem(id);
+        this.setState( ()=>{
+            return {detailProduct:product}
+        })
+    };
+    addToCart = id => {
+        console.log(`Hello from addToCart. ID IS: ${id}`);
     };
     render() {
         return (
@@ -39,7 +46,8 @@ class ProductProvider extends Component {
                 value={{
                     ...this.state,
                     handleDetail: this.handleDetail,
-                    addToCart: this.addToCart
+                    addToCart: this.addToCart,
+                    getItem: this.getItem
                 }}
             >
                 {this.props.children}

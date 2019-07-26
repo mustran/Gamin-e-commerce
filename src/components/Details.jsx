@@ -9,6 +9,7 @@ export default class Details extends Component {
             <ProductConsumer>
                 {value => {
                     const { title, price, info, inCart, id, company, img } = value.detailProduct;
+                    // console.log(img);
                     return (
                         <div className="container py-5">
                             {/* title */}
@@ -21,7 +22,7 @@ export default class Details extends Component {
                             <div className="row">
                                 {/* product img */}
                                 <div className="col-10 mx-auto col-md-6 my-3">
-                                    <img src={img} alt="product"  className="img-fluid" />
+                                    <img src={img} alt="product" className="img-fluid" />
                                 </div>
                                 {/* product text */}
                                 <div className="col-10 mx-auto col-md-6 my-3 text-capitalize">
@@ -38,9 +39,11 @@ export default class Details extends Component {
                                         <ButtonContainer>Back to products</ButtonContainer>
                                     </Link>
                                     <ButtonContainer
+                                        // cart prop
+                                        cart
                                         disabled={inCart ? true : false}
                                         onClick={() => {
-                                            value.addToCart(id)
+                                            value.addToCart(id);
                                         }}
                                     >
                                         {inCart ? "in cart" : "add to cart"}
