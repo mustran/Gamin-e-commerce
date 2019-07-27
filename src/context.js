@@ -85,11 +85,35 @@ class ProductProvider extends Component {
     };
 
     removeItem = id => {
-        console.log("item removed " + id);
+        let tempProducts = [...this.state.products];
+        let tempCart = [...this.state.cart];
+        tempCart = tempCart.filter(item => item.id !== id);
+
+        const index = tempProducts.indexOf(this.getItem(id));
+        tempProducts[index].inCart = false;
+        tempProducts[index].count = 0;
+        tempProducts[index].total = 0;
+
+        this.setState({
+            cart: [...tempCart],
+            products: [...tempProducts]
+        }, () => {
+            this.addTotals()
+        })
     };
 
     clearCart = () => {
-        console.log("cart cleared");
+        this.setState(
+            {
+                cart: []
+            },
+            () => {
+                // set products as in the beginning (default)
+                this.setProducts();
+                // calculate totals (set to 0)
+                this.addTotals();
+            }
+        );
     };
 
     addTotals = () => {
